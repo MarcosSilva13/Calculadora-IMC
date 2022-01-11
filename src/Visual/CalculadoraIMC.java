@@ -5,6 +5,8 @@
  */
 package Visual;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author marcos
@@ -54,6 +56,11 @@ public class CalculadoraIMC extends javax.swing.JFrame {
 
         btnCalc.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnCalc.setText("Calcular");
+        btnCalc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcActionPerformed(evt);
+            }
+        });
 
         txtIMC.setEditable(false);
         txtIMC.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
@@ -152,6 +159,8 @@ public class CalculadoraIMC extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblInfo.setSelectionBackground(new java.awt.Color(51, 102, 255));
+        tblInfo.setShowHorizontalLines(false);
         jScrollPane1.setViewportView(tblInfo);
         if (tblInfo.getColumnModel().getColumnCount() > 0) {
             tblInfo.getColumnModel().getColumn(0).setResizable(false);
@@ -188,6 +197,45 @@ public class CalculadoraIMC extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void selecionaColuna(double imc){
+        if(imc <= 18.5){
+            tblInfo.setRowSelectionInterval(0, 0);
+        } else if(imc > 18.5 && imc <= 24.9){
+            tblInfo.setRowSelectionInterval(1, 1);
+        } else if(imc >= 25.0 && imc <= 29.9){
+            tblInfo.setRowSelectionInterval(2, 2);
+        } else if(imc >= 30.0 && imc <= 39.9){
+            tblInfo.setRowSelectionInterval(3, 3);
+        } else {
+            tblInfo.setRowSelectionInterval(4, 4);
+        }
+    }
+    
+    
+    private void btnCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcActionPerformed
+        try {
+           if(txtAltura.getText().contains(",") || txtPeso.getText().contains(",")){
+               JOptionPane.showMessageDialog(null, "Troque a (vírgula) por um (ponto)!");
+            } else {
+               double altura = Double.parseDouble(txtAltura.getText());
+               double peso = Double.parseDouble(txtPeso.getText());
+               
+               if(altura > 0 && peso > 0){
+                   double imc = peso / Math.pow(altura, 2);
+                   
+                   selecionaColuna(imc);
+                   
+                   Double.toString(imc);
+                   txtIMC.setText(String.format("%.2f", imc));
+               } else {
+                   JOptionPane.showMessageDialog(null, "Valor inválido!");
+               }
+           }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Campo vazio! \nInsira um valor!");
+        }
+    }//GEN-LAST:event_btnCalcActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -222,6 +270,7 @@ public class CalculadoraIMC extends javax.swing.JFrame {
                 CalculadoraIMC form = new CalculadoraIMC();
                 form.setLocationRelativeTo(null);
                 form.setVisible(true);
+                
             }
         });
     }
