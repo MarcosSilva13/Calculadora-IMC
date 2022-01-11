@@ -40,7 +40,7 @@ public class CalculadoraIMC extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         abaInfo = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblInfo = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Calculadora IMC");
@@ -124,13 +124,14 @@ public class CalculadoraIMC extends javax.swing.JFrame {
 
         abas.addTab("IMC", abaIMC);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblInfo.setBackground(new java.awt.Color(204, 204, 204));
+        tblInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"MENOR QUE 18.5", "MAGREZA", "0"},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {"MENOR QUE 18.5", "MAGREZA", "                        0"},
+                {"ENTRE 18.5 E 24.9", "NORMAL", "                        0"},
+                {"ENTRE 25.0 E 29.9", "SOBREPESO", "                        1"},
+                {"ENTRE 30.0 E 39.9", "OBESIDADE", "                        2"},
+                {"MAIOR QUE 40.0", "OBESIDADE GRAVE", "                        3"}
             },
             new String [] {
                 "IMC", "CLASSIFICAÇÃO", "OBESIDADE - GRAU"
@@ -139,16 +140,23 @@ public class CalculadoraIMC extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane1.setViewportView(tblInfo);
+        if (tblInfo.getColumnModel().getColumnCount() > 0) {
+            tblInfo.getColumnModel().getColumn(0).setResizable(false);
+            tblInfo.getColumnModel().getColumn(1).setResizable(false);
+            tblInfo.getColumnModel().getColumn(2).setResizable(false);
         }
 
         javax.swing.GroupLayout abaInfoLayout = new javax.swing.GroupLayout(abaInfo);
@@ -160,7 +168,7 @@ public class CalculadoraIMC extends javax.swing.JFrame {
         abaInfoLayout.setVerticalGroup(
             abaInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaInfoLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -226,10 +234,10 @@ public class CalculadoraIMC extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblAltura;
     private javax.swing.JLabel lblIMC;
     private javax.swing.JLabel lblPeso;
+    private javax.swing.JTable tblInfo;
     private javax.swing.JTextField txtAltura;
     private javax.swing.JTextField txtIMC;
     private javax.swing.JTextField txtPeso;
