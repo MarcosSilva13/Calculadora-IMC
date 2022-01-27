@@ -18,6 +18,9 @@ public class CalculadoraIMC extends javax.swing.JFrame {
      */
     public CalculadoraIMC() {
         initComponents();
+        limpaCampos();
+        txtAltura.requestFocus();
+        
     }
 
     /**
@@ -32,14 +35,25 @@ public class CalculadoraIMC extends javax.swing.JFrame {
         abas = new javax.swing.JTabbedPane();
         abaIMC = new javax.swing.JPanel();
         lblAltura = new javax.swing.JLabel();
-        txtAltura = new javax.swing.JTextField();
         lblPeso = new javax.swing.JLabel();
-        txtPeso = new javax.swing.JTextField();
         btnCalc = new javax.swing.JButton();
         txtIMC = new javax.swing.JTextField();
         lblIMC = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        javax.swing.text.MaskFormatter maskAltura = null;
+        try{
+            maskAltura = new javax.swing.text.MaskFormatter("#.##");
+            maskAltura.setPlaceholderCharacter('_');
+        } catch (Exception e){}
+        txtAltura = new javax.swing.JFormattedTextField(maskAltura);
+        javax.swing.text.MaskFormatter maskPeso = null;
+        try{
+            maskPeso = new javax.swing.text.MaskFormatter("##.##");
+            maskPeso.setPlaceholderCharacter('_');
+        } catch (Exception e){}
+        txtPeso = new javax.swing.JFormattedTextField(maskPeso);
+        btnLimpar = new javax.swing.JButton();
         abaInfo = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblInfo = new javax.swing.JTable();
@@ -73,35 +87,45 @@ public class CalculadoraIMC extends javax.swing.JFrame {
         jLabel1.setText("Ex: 1.80");
 
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setText("Ex: 70.5");
+        jLabel2.setText("Ex: 70.53");
+
+        btnLimpar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout abaIMCLayout = new javax.swing.GroupLayout(abaIMC);
         abaIMC.setLayout(abaIMCLayout);
         abaIMCLayout.setHorizontalGroup(
             abaIMCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaIMCLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(abaIMCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPeso)
+                    .addComponent(lblAltura))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(abaIMCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtAltura, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                    .addComponent(txtPeso))
                 .addGroup(abaIMCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(abaIMCLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(abaIMCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPeso)
-                            .addComponent(lblAltura))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(abaIMCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPeso, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                            .addComponent(txtAltura))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaIMCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addGap(26, 26, 26)
-                        .addComponent(lblIMC)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIMC, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblIMC))
                     .addGroup(abaIMCLayout.createSequentialGroup()
-                        .addGap(188, 188, 188)
+                        .addGap(34, 34, 34)
                         .addComponent(btnCalc)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(abaIMCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLimpar)
+                    .addComponent(txtIMC, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         abaIMCLayout.setVerticalGroup(
             abaIMCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,13 +135,13 @@ public class CalculadoraIMC extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addGroup(abaIMCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblAltura)
-                            .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(abaIMCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblPeso)
-                            .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaIMCLayout.createSequentialGroup()
                         .addContainerGap()
@@ -125,8 +149,10 @@ public class CalculadoraIMC extends javax.swing.JFrame {
                             .addComponent(lblIMC)
                             .addComponent(txtIMC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(46, 46, 46)))
-                .addComponent(btnCalc)
-                .addGap(96, 96, 96))
+                .addGroup(abaIMCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCalc)
+                    .addComponent(btnLimpar))
+                .addGap(105, 105, 105))
         );
 
         abas.addTab("IMC", abaIMC);
@@ -177,7 +203,7 @@ public class CalculadoraIMC extends javax.swing.JFrame {
         abaInfoLayout.setVerticalGroup(
             abaInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaInfoLayout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
+                .addGap(0, 8, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -210,31 +236,39 @@ public class CalculadoraIMC extends javax.swing.JFrame {
             tblInfo.setRowSelectionInterval(4, 4);
         }
     }
-    
+   
+    private void limpaCampos(){
+        String limpa = "";
+        txtAltura.setText(limpa);
+        txtPeso.setText(limpa);
+        txtIMC.setText(limpa);
+    }
     
     private void btnCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcActionPerformed
         try {
-           if(txtAltura.getText().contains(",") || txtPeso.getText().contains(",")){
-               JOptionPane.showMessageDialog(null, "Troque a (vírgula) por um (ponto)!");
-            } else {
-               double altura = Double.parseDouble(txtAltura.getText());
-               double peso = Double.parseDouble(txtPeso.getText());
+            double altura = Double.parseDouble(txtAltura.getText());
+            double peso = Double.parseDouble(txtPeso.getText());
                
-               if(altura > 0 && peso > 0){
-                   double imc = peso / Math.pow(altura, 2);
+            if(altura > 0.00 && peso > 00.00){
+                double imc = peso / Math.pow(altura, 2);
                    
-                   selecionaColuna(imc);
+                selecionaColuna(imc);
                    
-                   Double.toString(imc);
-                   txtIMC.setText(String.format("%.2f", imc));
-               } else {
-                   JOptionPane.showMessageDialog(null, "Valor inválido!");
-               }
-           }
+                Double.toString(imc);
+                txtIMC.setText(String.format("%.2f", imc));
+                   
+            } else {
+                JOptionPane.showMessageDialog(null, "Valor inválido!");
+            }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Campo vazio! \nInsira um valor!");
+            JOptionPane.showMessageDialog(null, "Campo vazio! \nInsira um valor corretamente!");
         }
     }//GEN-LAST:event_btnCalcActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        limpaCampos();
+        txtAltura.requestFocus();
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,6 +314,7 @@ public class CalculadoraIMC extends javax.swing.JFrame {
     private javax.swing.JPanel abaInfo;
     private javax.swing.JTabbedPane abas;
     private javax.swing.JButton btnCalc;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -287,8 +322,8 @@ public class CalculadoraIMC extends javax.swing.JFrame {
     private javax.swing.JLabel lblIMC;
     private javax.swing.JLabel lblPeso;
     private javax.swing.JTable tblInfo;
-    private javax.swing.JTextField txtAltura;
+    private javax.swing.JFormattedTextField txtAltura;
     private javax.swing.JTextField txtIMC;
-    private javax.swing.JTextField txtPeso;
+    private javax.swing.JFormattedTextField txtPeso;
     // End of variables declaration//GEN-END:variables
 }
