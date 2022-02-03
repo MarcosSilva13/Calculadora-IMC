@@ -41,18 +41,8 @@ public class CalculadoraIMC extends javax.swing.JFrame {
         lblIMC = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        javax.swing.text.MaskFormatter maskAltura = null;
-        try{
-            maskAltura = new javax.swing.text.MaskFormatter("#.##");
-            maskAltura.setPlaceholderCharacter('_');
-        } catch (Exception e){}
-        txtAltura = new javax.swing.JFormattedTextField(maskAltura);
-        javax.swing.text.MaskFormatter maskPeso = null;
-        try{
-            maskPeso = new javax.swing.text.MaskFormatter("##.##");
-            maskPeso.setPlaceholderCharacter('_');
-        } catch (Exception e){}
-        txtPeso = new javax.swing.JFormattedTextField(maskPeso);
+        txtAltura = new javax.swing.JFormattedTextField();
+        txtPeso = new javax.swing.JFormattedTextField();
         btnLimpar = new javax.swing.JButton();
         abaInfo = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -246,22 +236,25 @@ public class CalculadoraIMC extends javax.swing.JFrame {
     
     private void btnCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcActionPerformed
         try {
-            double altura = Double.parseDouble(txtAltura.getText());
-            double peso = Double.parseDouble(txtPeso.getText());
-               
-            if(altura > 0.00 && peso > 00.00){
-                double imc = peso / Math.pow(altura, 2);
-                   
-                selecionaColuna(imc);
-                   
-                Double.toString(imc);
-                txtIMC.setText(String.format("%.2f", imc));
-                   
+            
+            if(txtAltura.getText().contains(",") || txtPeso.getText().contains(",")){
+                JOptionPane.showMessageDialog(null, "Troque a (virgula) por um (ponto) !");
             } else {
-                JOptionPane.showMessageDialog(null, "Valor inválido!");
-            }
+                
+                double altura = Double.parseDouble(txtAltura.getText());
+                double peso = Double.parseDouble(txtPeso.getText());
+                
+                if(altura > 0.00 && peso > 00.00){
+                    double imc = peso / Math.pow(altura, 2);
+                    selecionaColuna(imc);
+                    Double.toString(imc);
+                    txtIMC.setText(String.format("%.2f", imc));
+                } else {
+                    JOptionPane.showMessageDialog(null, "Valor inválido!");
+                }   
+            }  
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Campo vazio! \nInsira um valor corretamente!");
+            JOptionPane.showMessageDialog(null, "Insira um valor corretamente!");
         }
     }//GEN-LAST:event_btnCalcActionPerformed
 

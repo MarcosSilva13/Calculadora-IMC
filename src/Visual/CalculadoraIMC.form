@@ -185,16 +185,8 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="txtAltura">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(maskAltura)"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="javax.swing.text.MaskFormatter maskAltura = null;&#xd;&#xa;try{&#xd;&#xa;    maskAltura = new javax.swing.text.MaskFormatter(&quot;#.##&quot;);&#xd;&#xa;    maskAltura.setPlaceholderCharacter(&apos;_&apos;);&#xd;&#xa;} catch (Exception e){}"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="txtPeso">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(maskPeso)"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="javax.swing.text.MaskFormatter maskPeso = null;&#xd;&#xa;try{&#xd;&#xa;    maskPeso = new javax.swing.text.MaskFormatter(&quot;##.##&quot;);&#xd;&#xa;    maskPeso.setPlaceholderCharacter(&apos;_&apos;);&#xd;&#xa;} catch (Exception e){}"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="btnLimpar">
               <Properties>
